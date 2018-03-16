@@ -32,7 +32,7 @@ import static org.junit.Assert.assertEquals;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 @RunWith(AndroidJUnit4.class)
-public class ExampleInstrumentedTest {
+public class InstrumentedTest {
 
     @Rule
     public ActivityTestRule<MainActivity> main = new ActivityTestRule<>(MainActivity.class);
@@ -53,7 +53,7 @@ public class ExampleInstrumentedTest {
         onView(withId(R.id.submitButton)).perform(click());
         onView(withId(R.id.name)).perform(clearText()).perform(typeText("Mitchells Hatchet Job"));
         onView(withId(R.id.businessNumber)).perform(clearText()).perform(typeText("123456789"));
-        onView(withId(R.id.primaryBusiness)).perform(clearText()).perform(typeText("Poorly constructed Apps"));
+        onView(withId(R.id.primaryBusiness)).perform(clearText()).perform(typeText("Fisher"));
         onView(withId(R.id.address)).perform(clearText()).perform(typeText("China"));
         onView(withId(R.id.province_territory)).perform(clearText()).perform(typeText("NS"));
         Espresso.closeSoftKeyboard();
@@ -70,7 +70,7 @@ public class ExampleInstrumentedTest {
         onView(withId(R.id.submitButton)).perform(click());
         onView(withId(R.id.name)).perform(clearText()).perform(typeText("Mitchells Hatchet Jorb"));
         onView(withId(R.id.businessNumber)).perform(clearText()).perform(typeText("123456788"));
-        onView(withId(R.id.primaryBusiness)).perform(clearText()).perform(typeText("Poor constructed Apps"));
+        onView(withId(R.id.primaryBusiness)).perform(clearText()).perform(typeText("Fisher"));
         onView(withId(R.id.address)).perform(clearText()).perform(typeText("Chinu"));
         onView(withId(R.id.province_territory)).perform(clearText()).perform(typeText("NB"));
         Espresso.closeSoftKeyboard();
@@ -83,24 +83,26 @@ public class ExampleInstrumentedTest {
         assertEquals(true, somethingExists);
     }
 
-    @Test
+    @Test // Test not working as intended
     public void userUpdate() throws Exception {
 
         MainActivity mA = main.getActivity();
 
+        // Create a business
         onView(withId(R.id.submitButton)).perform(click());
         onView(withId(R.id.name)).perform(clearText()).perform(typeText("Mitchells Hatchet Jorb2"));
         onView(withId(R.id.businessNumber)).perform(clearText()).perform(typeText("123456787"));
-        onView(withId(R.id.primaryBusiness)).perform(clearText()).perform(typeText("Poor construct Apps"));
+        onView(withId(R.id.primaryBusiness)).perform(clearText()).perform(typeText("Fisher"));
         onView(withId(R.id.address)).perform(clearText()).perform(typeText("Chini"));
         onView(withId(R.id.province_territory)).perform(clearText()).perform(typeText("NT"));
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.submitButton)).perform(click());
 
+        // Update the business
         onData(anything()).atPosition(0).perform(click());
         onView(withId(R.id.name)).perform(clearText()).perform(typeText("Mitchell Hatchet Jorb2"));
         onView(withId(R.id.businessNumber)).perform(clearText()).perform(typeText("223456787"));
-        onView(withId(R.id.primaryBusiness)).perform(clearText()).perform(typeText("Moor construct Apps"));
+        onView(withId(R.id.primaryBusiness)).perform(clearText()).perform(typeText("Fisher"));
         onView(withId(R.id.address)).perform(clearText()).perform(typeText("Rhini"));
         onView(withId(R.id.province_territory)).perform(clearText()).perform(typeText("NT"));
         onView(withId(R.id.updateButton)).perform(click());
@@ -112,7 +114,7 @@ public class ExampleInstrumentedTest {
         assertEquals(true, somethingExists);
     }
 
-    @Test
+    @Test // Test not working as intended
     public void userDelete() throws Exception {
 
         MainActivity mA = main.getActivity();
@@ -121,7 +123,7 @@ public class ExampleInstrumentedTest {
         onView(withId(R.id.submitButton)).perform(click());
         onView(withId(R.id.name)).perform(clearText()).perform(typeText("Mitchell Hatchet Job"));
         onView(withId(R.id.businessNumber)).perform(clearText()).perform(typeText("123456487"));
-        onView(withId(R.id.primaryBusiness)).perform(clearText()).perform(typeText("Poor Apps"));
+        onView(withId(R.id.primaryBusiness)).perform(clearText()).perform(typeText("Fisher"));
         onView(withId(R.id.address)).perform(clearText()).perform(typeText("Chaps"));
         onView(withId(R.id.province_territory)).perform(clearText()).perform(typeText("QC"));
         Espresso.closeSoftKeyboard();
