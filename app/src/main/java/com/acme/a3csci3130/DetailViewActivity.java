@@ -3,35 +3,66 @@ package com.acme.a3csci3130;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 
+/**
+ * Description: Shows current contact info
+ */
 public class DetailViewActivity extends Activity {
 
-    private EditText nameField, emailField;
-    Contact receivedPersonInfo;
+    private EditText nameField, businessNumberField,
+            primaryBusinessField, addressField, province_territoryField;
+    BusinessContact receivedPersonInfo;
+    private MyApplicationData appState;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_view);
-        receivedPersonInfo = (Contact)getIntent().getSerializableExtra("Contact");
+        receivedPersonInfo = (BusinessContact)getIntent().getSerializableExtra("BusinessContact");
 
         nameField = (EditText) findViewById(R.id.name);
-        emailField = (EditText) findViewById(R.id.email);
+        businessNumberField = (EditText) findViewById(R.id.businessNumber);
+        primaryBusinessField = (EditText) findViewById(R.id.primaryBusiness);
+        addressField = (EditText) findViewById(R.id.address);
+        province_territoryField = (EditText) findViewById(R.id.province_territory);
 
         if(receivedPersonInfo != null){
             nameField.setText(receivedPersonInfo.name);
-            emailField.setText(receivedPersonInfo.email);
+            businessNumberField.setText(receivedPersonInfo.businessNumber);
+            primaryBusinessField.setText(receivedPersonInfo.primaryBusiness);
+            addressField.setText(receivedPersonInfo.address);
+            province_territoryField.setText(receivedPersonInfo.province_territory);
         }
     }
 
-    public void updateContact(View v){
-        //TODO: Update contact funcionality
+    /**
+     * Description: update contact information
+     * @param v current view
+     */
+    public void updateContact(View v) {
+        //each entry needs a unique ID
+        String personID = appState.firebaseReference.push().getKey();
+        String name = nameField.getText().toString();
+        String businessNumber = businessNumberField.getText().toString();
+        String primaryBusiness = primaryBusinessField.getText().toString();
+        String address = addressField.getText().toString();
+        String province_territory = province_territoryField.getText().toString();
+
+        BusinessContact person = new BusinessContact(personID, name, businessNumber,
+                primaryBusiness,address,province_territory);
+
+        appState.firebaseReference.child(personID).setValue(person);
+
+        finish();
     }
 
-    public void eraseContact(View v)
-    {
-        //TODO: Erase contact functionality
+    /**
+     * Description: Deletes current contact
+     * @param v the current view
+     */
+    public void eraseContact(View v) {
+        String personID = appState.firebaseReference.push().getKey();
+        appState.firebaseReference.child(personID).removeValue();
     }
 }

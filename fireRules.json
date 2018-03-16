@@ -2,15 +2,23 @@
   "rules": {
     ".read": "true",
     ".write": "true",
-    "contacts": {
-            "$contact": {
-                "name": {
-                    ".validate": "newData.isString() && newData.val().length < 50"
-                },
-                "email": {
-                    ".validate": "newData.isString() && newData.val().matches(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}$/i)"
-                }
-            }
-        }
+    "businesses": {
+      "$BusinessContact": {
+        "BusinessNumber": {
+          ".validate": "newData.isString() && newData.val().length == 9"
+        },
+        "name" : {
+          ".validate": "newData.isString() && newData.val().length > 1 && newData.val().length <49"
+        },
+        "address" : {
+          ".validate": "newData.isString() && newData.val().length < 50"
+        },
+        "primaryBusiness" : {
+          ".validate": "newData.isString() && newData.val().matches(/Fisher/) || newData.val().matches(/Distributor/) || newData.val().matches(/Processor/) || newData.val().matches(/Fish Monger/)"
+        },
+        "province_territory" : {
+          ".validate": "newData.isString() && newData.val().matches(/AB/) || newData.val().matches(/BC/) || newData.val().matches(/MB/) || newData.val().matches(/NB/) || newData.val().matches(/NL/) || newData.val().matches(/NS/) || newData.val().matches(/NT/) || newData.val().matches(/NU/) || newData.val().matches(/ON/) || newData.val().matches(/PE/) || newData.val().matches(/QC/) || newData.val().matches(/SK/) || newData.val().matches(/ST/)"        }
+      }
+    }
   }
 }
